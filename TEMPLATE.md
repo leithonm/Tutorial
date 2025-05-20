@@ -1,10 +1,9 @@
 ---
-title: My Super Awesome Tutorial
-date: 1970-01-01
+title: Connecting Tempature/Gas sensors on ESP32
+date: 2025-05-19
 authors:
-  - name: John Doe
-  - name: Mary Jane
----
+  - name: Leithon Magana
+  
 
 ![relevant graphic or workshop logo](image/path)
 
@@ -16,7 +15,9 @@ What do you want readers to gain from the tutorial?
 
 ### Learning Objectives
 
-- Bullet list of skills/concepts to be covered
+- Attaching a sensor onto PCB desing
+- Creating schematics for Sensors to attach pins
+- Hand Soldering sensors onto shield
 
 Any additional notes from the developers can be included here.
 
@@ -42,6 +43,8 @@ The following are stylistic examples of possible prerequisites,
 customize these for each workshop.
 
 ### Required Downloads and Installations
+
+Required: KiCad
 
 List any required downloads and installations here.
 Make sure to include tutorials on how to install them.
