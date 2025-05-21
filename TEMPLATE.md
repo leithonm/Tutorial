@@ -4,11 +4,11 @@ date: 2025-05-19
 authors:
   - name: Leithon Magana
   
-
-![relevant graphic or workshop logo](image/path)
+  ![Gas sensor](https://github.com/user-attachments/assets/1e7e6ece-03e6-4241-924d-609234781d8a)
 
 ## Introduction
-
+This tutorial is aiming to accomplish what is needed to be able to connect a tempature/gas sensor to esp32.
+These sensors are needed for when wanting to be able to sense tempature or gas in a enclosed space like a garage for example.
 Write a short section on what the tutorial is aiming to accomplish.
 What is the motivation behind the tutorial?
 What do you want readers to gain from the tutorial?
