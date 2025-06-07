@@ -9,50 +9,49 @@ group 7 members:
   - name: Brigit Quezada
 ---
 
-[magnetic reed switches](https://github.com/user-attachments/assets/f098feff-a916-4f7f-b12d-150238565848)
+![temps](https://github.com/user-attachments/assets/b44e258c-bfcb-4bb0-8968-baa13a49d127)
 
 
 ## Introduction
 
-This tutorial is aiming to accomplish a better understanding of the basic functionalities of magnetic reed switches. In this tutorial we will learn about reed switches, how they work and how to integrate them using an ESP32 microcontroller. 
+This tutorial is aiming to accomplish a better grasp of the application of both tempature and gas sensors on an esp32. In this tutorial we will learn about tempature and gas sensors, how they work and how to integrate them using an ESP32 microcontroller. 
 
 ### Learning Objectives
 
-- Understand reed switch operation (NO vs NC)
-- Wire reed switches directly to ESP32-S3
-- Program basic switch detection
-- Monitor switch states via Serial output
+- Understand what the sensors read
+- PCB design
+- Hand soldering sensors on shield
+- Connecting shield to esp32
 
 
 ### Background Information
 
-A magnetic reed switch is an electronic sensor that acts like a button or a switch. It is activated by the presence by a nearby magnetic field. It consists of two very thin ferromagnetic metal plates (reeds) sealed within a glass envelope filled with inert gas. In a normaly open switch, there is a small gap in between the two plates, so they are not touching eachother. In the presence of a nearby magnetic field, the two plates will bend sligly and come in contact with each other and then close the circuit. IN a normally clsoed switch, the two reed switches naturally have contact with eachother when there is no magnetic field present (this is opposite from the normally open switch). When a magnetic field is applied to these kinds of reed switches, they become magnitied by the same polarity and the magnetic force causes the reeds witches to oull apart, thus openeing the circuit and sopping the current flow. 
-
-Reed switches are used commonly in security systems, door/window sensors and proximity detection. They offer several advantages including no mechanical wear (contactless operation), hermetically sealed contacts that resist corrosion, and long operational life.
+Temperature sensors are devices that measure heat or cold. They convert a physical quantity (temperature) into an electrical signal that can be read by a microcontroller or other electronic device. Carbon Monoxide (CO) sensors are devices designed to detect the presence of carbon monoxide gas in the surrounding atmosphere. CO is a colorless, odorless, and tasteless gas that is highly toxic to humans and animals because it interferes with the blood's ability to carry oxygen. These sensors contain electrodes and an electrolyte. When CO gas comes into contact with the sensor, it causes a chemical reaction that generates a small electrical current. This current is proportional to the concentration of CO in the air. These are two important sensors and with this small amount of current it can be used to send signals into a microcontroller which can be read with one like an esp 32. 
 
 Pros:
 
-- No physical contact required for activation
-= Very reliable and long-lasting
-- Low cost and simple to implement
-- Works through non-magnetic materials (plastic, wood, glass)
+- Cost effective
+= Integration capabilities
+- Low power consumption
+- Real time data
 - No power consumption when inactive
 
 Cons:
 
-- Limited switching speed compared to solid-state sensors
-- Can be affected by strong external magnetic fields
+- Accuracy without calibration
+- Data interpretation
+- Power management
   
 Key Concepts:
 
-Normally Open (NO): Contacts are open when no magnetic field is present
-Normally Closed (NC): Contacts are closed when no magnetic field is present
-Actuation Distance: The distance at which the magnet activates the switch
-Hysteresis: The difference between activation and deactivation distances
+Calibrating the analog sensors
+Building a PCB to hold the sensors and give power to
+Soldering said pcb onto a microcontroller like the esp32
+Setting up the right pins to receive data
 
 ## Getting Started
 
-This tutorial uses the ESP32 S3 mini microcontroller platform with the Arduino IDE. The ESP32 provides built-in WiFi capabilities and multiple GPIO pins, making it ideal for IoT sensor projects.
+This tutorial uses the ESP32 S3 mini microcontroller platform with the Arduino IDE. The ESP32 provides built-in WiFi capabilities and multiple GPIO pins, making it ideal for hese sensor projects.
 
 Required downloads and instillations: 
 - Arduinbi IDE 2.0: download from arduino.cc
@@ -60,75 +59,97 @@ Required downloads and instillations:
 
 Required Components: 
 - 1 ESP32-S3 Development board
-- 1 Gebildet Pre-Wired Reed Switch (NO/ NC) : https://www.amazon.com/Gebildet-Recessed-Security-Magnetic-Normally/dp/B085XQLQ3N/ref=sr_1_5?dib=eyJ2IjoiMSJ9.T84oAGMrKXDrF4D3rIa_sKrXJ__1yi7gbYOlIRgMjNRn3kpCAzOlAFIaqfbpmV6Xd_wM0ogDDPjGYPP9hbRJAce9fDCl-61y4pl0B8fiK3tAG82CJtm_o5fZ0iZUQQ5cexWFEo5K4YHZ5GQncoKueJfX-fgub_L8VGUf40-aKQYrdASg3PSL0hXhp1rVNQBv3xlcCdIgQpfyVIUs8b4vhr1-BEOgY9W4NR2iT_OH6V0.lz20qwhAakjFqWj13YhidcDCMV3rO8S34D89Al_P4UU&dib_tag=se&keywords=reed%2Bswitch&qid=1745005621&sr=8-5&th=1
+- 1 Tempature Sensor : https://www.digikey.com/en/products/detail/stmicroelectronics/STTS22HTR/10668399?gQT=2
 
 Required Equiptment: 
-- Computer with USB Port
-- USB-C cable for ESP32-S3 Development board
 
-## Part 01: Basic Reed Switch Circuit
+| Component Name | Quanitity |
+| -------------- | --------- |
+|ESP32 Dev Board | 1 |
+| PCB customized | 1 |
+| Tempature sensor | 1 |
+| Gas sensor | 1 |
+| USB-C (or USB-A) to USB-C Cable | 1 | 
+
+
+## Part 01: Building the PCB
 
 ### Introduction
 
-Build a simple circuit that detects reed switch activation using only the ESP32-S3 and Serial monitor output.
+Start by creating your PCB shield that will be able to connect to the esp32. You would want to create a simple pcb that connect the sensors correctly and are both wire to a 3.3V source (per datasheet) and connect to ground. 
 
 ### Objective
 
-- Connect reed switch directly to ESP32-S3 GPIO pins
-- Read and interpret digital switch states in code
-- Test switch functionality with magnetic activation
+- Connect both sensor footprints to 3.3V and ground
+- Make sure pins are correct orientation
+- Add components (resistors and capacitors) where needed
+
+  ![Tempature Sensor](https://github.com/user-attachments/assets/8ab652f8-beeb-49ae-8f48-de97208e5a9a)
+
 
 ### Background Information
 
-In this tutorial, I learned basic C++ syntax for Arduino IDE, Digital input/ oputput pin configuration, conditional logic. I understood basic pull-up resistsor concepts, microcontroller programming fundamentals and digital signal interpretation.
+In this tutorial, I learned to create a PCB in KiCad , Digital input/ oputput pin configuration. I understood basic placement of resistsor and capacitor concepts, microcontroller programming fundamentals and digital signal interpretation.
 
 ### Components
 
 - ESP32-S3 development board
-- Gebildet pre-wired reed switch (NO/NC configurable)
+- KiCad 
 - USB-C cable for programming and power
 - Computer with Arduino IDE installed
 
-### Instructional
+### Soldering parts and Connecting pins
 
-For this tutorial, we start with connecting the reed swwitch to the ESP32 S3 development board. To do this, take the blue wire wich is the common termainal and connect it to the GPIO Pin 2 on the ESP32 S3 Development board. Connect the black wire to GND. 
+For this tutorial, we start with soldering all the pieces on to the board using soldering paste first. Once all components are placed using the soldering past you want to cook your PCB until fully really. Once that is done you want to make sure that the correct pins are are connecting to the ESP32. 
 
-Next, open the Arduino IDE and create a new sketch with this test code: 
+The reasoning for this check is because certain pins on the esp32 do not take in data like others and if you want to read tempature level the numbers meed to be calibrated and interpreted into degrees.
 
-const int REED_PIN = 2;
+![SOldered PCB](https://github.com/user-attachments/assets/83d99b1b-919c-4193-80ad-e40a7a286862)
 
-void setup() {
-  Serial.begin(115200);
-  pinMode(REED_PIN, INPUT_PULLUP);
-  Serial.println("Reed Switch Test Starting...");
-}
-
-void loop() {
-  int switchState = digitalRead(REED_PIN);
-  
-  if (switchState == HIGH) {  // Magnet present (NC switch opens)
-    Serial.println("SWITCH OPEN - Magnet detected!");
-  } else {  // No magnet (NC switch closed)
-    Serial.println("SWITCH CLOSED - No magnet");
-  }
-  
-  delay(500);  // Check every half second
-}
-
-This configures GPIO 2 as an input with the internal pull-up resistor enabled using INPUT_PULLUP mode. This internal resistor makes it so that when the reed switch opens (magnet present), the GPIO pin is pulled HIGH to 3.3V, while when the switch is closed (no magnet), current flows through the switch to ground, making the pin read LOW. The main loop continuously reads the digital state of GPIO 2 using digitalRead(). When the function returns HIGH, it means the magnet has opened the normally closed switch, so we display "Magnet detected!" to the Serial monitor. 
-
-Upload this code to the ESP32-S3, open the Serial Monitor at 115200 baud rate, and test the system by bringing the reed switch pair close togther. The Serial output change from "SWITCH CLOSED - No magnet" to "SWITCH OPEN - Magnet detected!" as you bring them togther and then pull them apart.
+As per the photo making sure that no parts of the soldered components are touching and making sure that the rail on the pcb goes from the 3.3 V to all the other components.
 
 
+### Testing Sensors
 
-### Analysis
+Once you are able to get the shield attached onto the esp32 you must decide which pin you would be testing and see if there are any readings.
 
-My example shows some interesting concepts that are important to understanding reed switches. First it incorperates pin configurations of the blue and black wires. Second it incorperates state change detection. 
+Luckiliy for you I have test code to try and test for the Tempature sensor which would be done on arduino. 
+
+            #include < Wire.h >
+            #include "STTS22HSensor.h"
+            TwoWire        I2CBus = TwoWire(0);
+            STTS22HSensor  Temp(&I2CBus);
+
+            void setup() {
+            Serial.begin(115200);
+            delay(100);
+            Serial.println("STTS22H Temperature Test");
+            // GPIO37=SDA, GPIO38=SCL
+            I2CBus.begin(37, 38, 400000);
+            if (Temp.begin() != 0) {
+                Serial.println("ERROR: STTS22H not found.");
+                while (1) delay(1000);
+            }
+            Temp.Enable();
+            Serial.println("STTS22H initialized!");
+            }
+
+            void loop() {
+            float temperature;
+            if (Temp.GetTemperature(&temperature) == 0) {
+                Serial.printf("Temperature: %.2f °C\n", temperature);
+            } else {
+                Serial.println("Read error");
+            }
+            delay(1000);
+            }
+
+## Analysis
+There is a lot that can go wrong when getting ready to use a tempature sensor in so many different places. When creating the PCB shield Truly make sure that all pins are set up corrently in the right orientationa dnthat there is a 3.3 V connection to the sensors. When figuring out which components to use resort to certain datasheets that the sensors should provide. The Process of getting solders on correctly is a tedious one which I think with practice should be really fun and exciting. Once you connect the correct pins to the board and have the shield receive voltage You must use the test code to see what readings you are getting. WIth this tutorial we use STTS22H sensor which will vary reults on different sensors. Following these steps you should get the sensors working just fine. Good luck !!
 
 ## Additional Resources and Useful links
 
-https://www.youtube.com/watch?v=iBjNpcQ4fG8
+(https://youtube.com/shorts/sJJh-J6e2As?si=Xqb7Y2Yls_3wEPgB)
 
-https://www.samgalope.dev/2025/01/18/using-a-reed-switch-sensor-with-esp32-magnetic-field-detection-made-easy/
-
-https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/761/XBee_Cellular_Garage_Door_Sensor.pdf?_gl=1*1omkzh6*_up*MQ..*_gs*MQ..&gclid=CjwKCAjwo4rCBhAbEiwAxhJlCYtfdXweoyJKg7wQ0OKW3vffvfQxPLxx54j6O2Ih62xsWlhw6O1W7BoCz88QAvD_BwE&gclsrc=aw.ds&gbraid=0AAAAADrbLljsNAWqyFGkERwFblLMZBnEk
+## Similar Tutorial
+https://www.instructables.com/Temperature-Sensor-Tutorial/
